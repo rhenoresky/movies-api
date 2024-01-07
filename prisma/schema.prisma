@@ -24,7 +24,7 @@ model Movie {
   duration    Int
   rating      Float
   release     String
-  image       String
+  image       String?
   categories  MovieCategory[]
 }
 
