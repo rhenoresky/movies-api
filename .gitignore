@@ -34,5 +34,9 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-/src
 /files
+/src/auth
+/src/movie
+/src/prisma
+/src/user
+/src/id-generator
