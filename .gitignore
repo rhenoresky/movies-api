@@ -40,4 +40,3 @@ lerna-debug.log*
 /src/movie
 /src/prisma
 /src/user
-/src/id-generator
