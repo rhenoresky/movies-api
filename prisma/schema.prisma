@@ -38,6 +38,8 @@ model MovieCategory {
   id         Int      @id @default(autoincrement())
   movieId    String
   categoryId Int
-  movie      Movie    @relation(fields: [movieId], references: [id])
-  category   Category @relation(fields: [categoryId], references: [id])
+  movie      Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([movieId, categoryId])
 }
