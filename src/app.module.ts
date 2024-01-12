@@ -5,6 +5,7 @@ import { IdGeneratorModule } from './id-generator/id-generator.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { MovieModule } from './movie/movie.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MovieModule } from './movie/movie.module';
     ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     MovieModule,
+    LikeModule,
   ],
 })
 export class AppModule {}

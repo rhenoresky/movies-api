@@ -11,10 +11,11 @@ datasource db {
 }
 
 model User {
-  id       String @id
-  email    String @unique
-  name     String
-  password String
+  id        String      @id
+  email     String      @unique
+  name      String
+  password  String
+  LikeMovie LikeMovie[]
 }
 
 model Movie {
@@ -26,6 +27,7 @@ model Movie {
   release     String
   image       String?
   categories  MovieCategory[]
+  LikeMovie   LikeMovie[]
 }
 
 model Category {
@@ -42,4 +44,14 @@ model MovieCategory {
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([movieId, categoryId])
+}
+
+model LikeMovie {
+  id      Int    @id @default(autoincrement())
+  userId  String
+  movieId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
 }
