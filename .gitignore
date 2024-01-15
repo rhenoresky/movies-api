@@ -36,7 +36,6 @@ lerna-debug.log*
 
 .env
 /files
-/src/movie/dto
 /src/prisma
 /src/user
 /src/like
