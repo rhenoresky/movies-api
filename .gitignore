@@ -36,6 +36,5 @@ lerna-debug.log*
 
 .env
 /files
-/src/prisma
 /src/user
 /src/like
