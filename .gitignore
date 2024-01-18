@@ -38,5 +38,4 @@ lerna-debug.log*
 /files
 /src/user/dto
 /src/user/user.service.ts
-/src/user/user.controller.ts
 /src/like
