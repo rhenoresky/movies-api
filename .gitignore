@@ -36,5 +36,4 @@ lerna-debug.log*
 
 .env
 /files
-/src/user/dto
 /src/like
