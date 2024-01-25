@@ -36,7 +36,7 @@ export class AuthService {
     delete user.password;
 
     return {
-      message: 'succes',
+      message: 'success',
       data: {
         ...user,
       },
