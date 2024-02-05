@@ -12,13 +12,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { basename, extname } from 'path';
 import { Response } from 'express';
 import { MovieService } from './movie.service';
 import { CategoryDto, EditMovieDto, MovieDto } from './dto';
 import { ImageDto } from './dto/image.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { storageConfig } from './helper/multerConfig';
 
 @Controller('movie')
 export class MovieController {
@@ -72,23 +71,11 @@ export class MovieController {
 
   @UseGuards(AuthGuard('auth-jwt'))
   @Post('image')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: 'files',
-        filename: (req, image, callback) => {
-          const filename = `${basename(
-            image.originalname,
-            extname(image.originalname),
-          )}-${Date.now()}${extname(image.originalname)}`;
-          callback(null, filename);
-        },
-      }),
-    }),
-  )
+  @UseInterceptors(FileInterceptor('image', storageConfig))
   async addImage(
     @Body() movie: ImageDto,
-    @UploadedFile() image: any,
+    @UploadedFile()
+    image: Express.Multer.File,
   ): Promise<object> {
     const path = `http://localhost:3000/movie/image/${image.filename}`;
     await this.movieService.addImage(movie.id, path);
