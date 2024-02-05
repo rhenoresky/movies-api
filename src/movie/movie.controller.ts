@@ -9,6 +9,7 @@ import {
   Body,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -17,11 +18,13 @@ import { Response } from 'express';
 import { MovieService } from './movie.service';
 import { CategoryDto, EditMovieDto, MovieDto } from './dto';
 import { ImageDto } from './dto/image.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('movie')
 export class MovieController {
   constructor(private movieService: MovieService) {}
 
+  @UseGuards(AuthGuard('auth-jwt'))
   @Post()
   async addMovie(@Body() movie: MovieDto): Promise<object> {
     const data = await this.movieService.addMovie(movie);
@@ -40,6 +43,7 @@ export class MovieController {
     return await this.movieService.getMovieById(id);
   }
 
+  @UseGuards(AuthGuard('auth-jwt'))
   @Put(':id')
   async editMovieById(
     @Param('id') id: string,
@@ -48,6 +52,7 @@ export class MovieController {
     return this.movieService.editMovieById(id, editMovie);
   }
 
+  @UseGuards(AuthGuard('auth-jwt'))
   @Delete(':id')
   async deleteMovieById(@Param('id') id: string) {
     await this.movieService.deleteMovieById(id);
@@ -56,6 +61,7 @@ export class MovieController {
     };
   }
 
+  @UseGuards(AuthGuard('auth-jwt'))
   @Post('category')
   async addMovieCategory(@Body() movie: CategoryDto) {
     await this.movieService.addMovieCategory(movie);
@@ -64,6 +70,7 @@ export class MovieController {
     };
   }
 
+  @UseGuards(AuthGuard('auth-jwt'))
   @Post('image')
   @UseInterceptors(
     FileInterceptor('image', {
