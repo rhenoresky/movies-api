@@ -13,7 +13,7 @@ model User {
   name      String
   password  String
   role      Role        @default(USER)
-  LikeMovie LikeMovie[]
+  likeMovie LikeMovie[]
 }
 
 enum Role {
@@ -30,7 +30,7 @@ model Movie {
   release     String
   image       String?
   categories  MovieCategory[]
-  LikeMovie   LikeMovie[]
+  likeMovie   LikeMovie[]
 }
 
 model Category {
