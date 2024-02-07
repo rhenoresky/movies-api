@@ -36,5 +36,4 @@ lerna-debug.log*
 
 .env
 /files
-/src/like/like.service.spec.ts
-/src/like/like.controller.spec.ts
+src/category

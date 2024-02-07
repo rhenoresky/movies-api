@@ -18,10 +18,14 @@ import { CategoryDto, EditMovieDto, MovieDto } from './dto';
 import { ImageDto } from './dto/image.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { storageConfig } from './helper/multerConfig';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('movie')
 export class MovieController {
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private config: ConfigService,
+  ) {}
 
   @UseGuards(AuthGuard('auth-jwt'))
   @Post()
@@ -77,7 +81,9 @@ export class MovieController {
     @UploadedFile()
     image: Express.Multer.File,
   ): Promise<object> {
-    const path = `http://localhost:3000/movie/image/${image.filename}`;
+    const host = this.config.get('HOST');
+    const port = this.config.get('PORT');
+    const path = `http://${host}:${port}/movie/image/${image.filename}`;
     await this.movieService.addImage(movie.id, path);
     return {
       path,
