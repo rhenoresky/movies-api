@@ -32,6 +32,7 @@ export class MovieController {
   async addMovie(@Body() movie: MovieDto): Promise<object> {
     const data = await this.movieService.addMovie(movie);
     return {
+      message: 'success',
       data,
     };
   }
@@ -52,7 +53,11 @@ export class MovieController {
     @Param('id') id: string,
     @Body() editMovie: EditMovieDto,
   ) {
-    return this.movieService.editMovieById(id, editMovie);
+    const data = await this.movieService.editMovieById(id, editMovie);
+    return {
+      message: 'success',
+      data,
+    };
   }
 
   @UseGuards(AuthGuard('auth-jwt'))
@@ -69,7 +74,7 @@ export class MovieController {
   async addMovieCategory(@Body() movie: CategoryDto) {
     await this.movieService.addMovieCategory(movie);
     return {
-      message: 'success',
+      message: 'successs',
     };
   }
 
