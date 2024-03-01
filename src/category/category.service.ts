@@ -18,6 +18,15 @@ export class CategoryService {
     });
   }
 
+  async getCategory() {
+    return await this.prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+  }
+
   async editCategory({ id, name }) {
     await this.prisma.category.update({
       data: {
